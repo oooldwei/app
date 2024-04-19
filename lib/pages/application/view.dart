@@ -10,8 +10,8 @@ class ApplicationPage extends GetView<ApplicationController> {
   AppBar _buildAppBar() {
     return AppBar(
         title: Obx(() => Text(
-          controller.tabTitles[controller.state.page].tr,
-        )),
+              controller.tabTitles[controller.state.page].tr,
+            )),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -33,14 +33,16 @@ class ApplicationPage extends GetView<ApplicationController> {
 
   // 底部导航
   Widget _buildBottomNavigationBar() {
-    return Obx(() => BottomNavigationBar(
-      items: controller.bottomTabs,
-      currentIndex: controller.state.page,
-      type: BottomNavigationBarType.fixed,
-      onTap: controller.handleNavBarTap,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-    ));
+    return Obx(
+      () => BottomNavigationBar(
+        items: controller.bottomTabs,
+        currentIndex: controller.state.page,
+        type: BottomNavigationBarType.fixed,
+        onTap: controller.handleNavBarTap,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      ),
+    );
   }
 
   @override

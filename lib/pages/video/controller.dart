@@ -1,5 +1,4 @@
 import 'package:app/api/bilibili.dart';
-import 'package:app/core/util/logger.dart';
 import 'package:app/pages/video/state.dart';
 import 'package:get/get.dart';
 
@@ -8,11 +7,8 @@ class VideoController extends GetxController {
 
   final state = VideoState();
 
-  @override
-  void onInit() {
-    super.onInit();
-    logger.i("测试接口请求");
-    var conversationRepository = BilibiliApi.conversationRepository(params: {"avid": "BV1WC411G7Mg"});
-    logger.i(conversationRepository);
+  getVideInfo() async {
+    var conversationRepository = await BilibiliApi.conversationRepository(params: {"bvid": "BV1WC411G7Mg"});
+    state.videoInfo.value = conversationRepository.toString();
   }
 }

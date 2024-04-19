@@ -3,7 +3,7 @@ import 'package:app/core/dio/request.dart';
 class BilibiliApi {
 
   /// 查询bvid信息
-  static Future<void> conversationRepository({
+  static Future<dynamic> conversationRepository({
     Map<String, dynamic>? params,
     bool refresh = false,
     bool cacheDisk = false,

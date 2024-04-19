@@ -7,11 +7,25 @@ class VideoPage extends GetView<VideoController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("ioooo"),
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          title: Text("ioooo"),
+        ),
+        body: Column(
+          children: [
+            ElevatedButton(
+              child: Text("获取数据"),
+              onPressed: () => controller.getVideInfo(),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Text(controller.state.videoInfo.value),
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Text("data"),
     );
   }
 }
