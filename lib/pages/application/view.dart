@@ -1,6 +1,5 @@
+import 'package:app/core/router/navigation.dart';
 import 'package:app/pages/application/controller.dart';
-import 'package:app/pages/discover/view.dart';
-import 'package:app/pages/tools/view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,10 +27,7 @@ class ApplicationPage extends GetView<ApplicationController> {
       physics: const NeverScrollableScrollPhysics(),
       controller: controller.pageController,
       onPageChanged: controller.handlePageChanged,
-      children:  const <Widget>[
-        DiscoverPage(),
-        ToolsPage(),
-      ],
+      children: buildPageView(),
     );
   }
 
