@@ -1,5 +1,5 @@
 import 'package:app/core/router/routes.dart';
-import 'package:app/pages/tools/controller.dart';
+import 'package:app/view/tools/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

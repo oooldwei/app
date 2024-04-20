@@ -1,5 +1,5 @@
-import 'package:app/pages/discover/view.dart';
-import 'package:app/pages/tools/view.dart';
+import 'package:app/view/discover/view.dart';
+import 'package:app/view/tools/view.dart';
 import 'package:flutter/material.dart';
 
 // 导航名称

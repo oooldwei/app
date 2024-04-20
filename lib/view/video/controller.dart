@@ -1,5 +1,5 @@
 import 'package:app/api/bilibili.dart';
-import 'package:app/pages/video/state.dart';
+import 'package:app/view/video/state.dart';
 import 'package:get/get.dart';
 
 class VideoController extends GetxController {

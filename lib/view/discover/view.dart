@@ -1,4 +1,4 @@
-import 'package:app/pages/discover/controller.dart';
+import 'package:app/view/discover/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

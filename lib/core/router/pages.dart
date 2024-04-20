@@ -1,13 +1,13 @@
 import 'package:app/core/router/observer.dart';
 import 'package:app/core/router/routes.dart';
-import 'package:app/pages/application/binding.dart';
-import 'package:app/pages/application/view.dart';
-import 'package:app/pages/discover/binding.dart';
-import 'package:app/pages/discover/view.dart';
-import 'package:app/pages/tools/binding.dart';
-import 'package:app/pages/tools/view.dart';
-import 'package:app/pages/video/binding.dart';
-import 'package:app/pages/video/view.dart';
+import 'package:app/view/application/binding.dart';
+import 'package:app/view/application/view.dart';
+import 'package:app/view/discover/binding.dart';
+import 'package:app/view/discover/view.dart';
+import 'package:app/view/tools/binding.dart';
+import 'package:app/view/tools/view.dart';
+import 'package:app/view/video/binding.dart';
+import 'package:app/view/video/view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
