@@ -43,6 +43,8 @@ dependencies:
   cookie_jar: ^4.0.8
   # 日志打印
   logger: ^2.2.0
+  # 音频播放
+  audioplayers: ^6.0.0
 
 dev_dependencies:
   flutter_test:
