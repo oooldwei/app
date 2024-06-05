@@ -7,6 +7,18 @@ class DiscoverPage extends GetView<DiscoverController> {
 
   @override
   Widget build(BuildContext context) {
-    return Text("discover".tr);
+    return Column(
+      children: [
+        Text("discover".tr),
+        ElevatedButton(
+          child: Text("存入"),
+          onPressed: () => controller.add(DateTime.timestamp().toString()),
+        ),
+        ElevatedButton(
+          child: Text("读取"),
+          onPressed: controller.find,
+        ),
+      ],
+    );
   }
 }

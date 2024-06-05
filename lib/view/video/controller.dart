@@ -1,4 +1,4 @@
-import 'package:app/api/request/bilibili.dart';
+import 'package:app/api/use/bilibili.dart';
 import 'package:app/core/util/logger.dart';
 import 'package:app/view/video/state.dart';
 import 'package:audioplayers/audioplayers.dart';
