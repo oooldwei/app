@@ -23,7 +23,6 @@ class HiveStore {
 }
 
 initializeHive() async {
-  // thanks  `亚·坤` for this suggestion
   var dir = await getApplicationDocumentsDirectory();
   Hive
     ..init(dir.path)

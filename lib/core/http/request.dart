@@ -1,4 +1,4 @@
-import 'package:app/core/dio/config.dart';
+import 'package:app/core/http/config.dart';
 import 'package:app/core/util/logger.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
@@ -37,7 +37,7 @@ class HttpUtil {
       /// [responseType] 表示期望以那种格式(方式)接受响应数据。
       /// 目前 [ResponseType] 接受三种类型 `JSON`, `STREAM`, `PLAIN`.
       ///
-      /// 默认值是 `JSON`, 当响应头中content-type为"application/json"时，dio 会自动将响应内容转化为json对象。
+      /// 默认值是 `JSON`, 当响应头中content-type为"application/json"时，http 会自动将响应内容转化为json对象。
       /// 如果想以二进制方式接受响应数据，如下载一个二进制文件，那么可以使用 `STREAM`.
       ///
       /// 如果想以文本(字符串)格式接收响应数据，请使用 `PLAIN`.
