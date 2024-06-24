@@ -37,8 +37,8 @@ class ProfilePage extends GetView<ProfileController> {
               ElevatedButton(
                 onPressed: () {
                   CustomDialog.showConfirmDialog(
-                    title: "确认退出",
-                    content: "您确定要退出登录吗？",
+                    title: "logout_confirm_dialog_title".tr,
+                    content: "logout_confirm_dialog_content".tr,
                     onConfirm: () async {
                       Get.offAndToNamed(AppRoutes.login); // 返回登录页面
                       await BaseApi.logout();

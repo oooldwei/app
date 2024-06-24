@@ -18,14 +18,14 @@ class CustomDialog {
               Get.back(); // 关闭对话框
               onCancel(); // 执行取消操作
             },
-            child: const Text('取消'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () {
               Get.back(); // 关闭对话框
               onConfirm(); // 执行确认操作
             },
-            child: const Text('确认'),
+            child: Text('confirm'.tr),
           ),
         ],
       ),
