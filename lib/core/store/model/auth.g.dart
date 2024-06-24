@@ -8,7 +8,7 @@ part of 'auth.dart';
 
 class AuthAdapter extends TypeAdapter<Auth> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   Auth read(BinaryReader reader) {
@@ -17,16 +17,19 @@ class AuthAdapter extends TypeAdapter<Auth> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Auth(
-      token: fields[0] as String,
+      token: fields[0] as String?,
+      expiresAt: fields[1] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Auth obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.token);
+      ..write(obj.token)
+      ..writeByte(1)
+      ..write(obj.expiresAt);
   }
 
   @override

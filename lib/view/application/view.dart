@@ -1,4 +1,5 @@
 import 'package:app/core/router/navigation.dart';
+import 'package:app/core/util/logger.dart';
 import 'package:app/view/application/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

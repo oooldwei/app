@@ -11,7 +11,8 @@ class BiliApiResponse<T> {
     this.data,
   });
 
-  factory BiliApiResponse.fromJson(Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJsonT) {
+  factory BiliApiResponse.fromJson(
+      Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJsonT) {
     return BiliApiResponse(
       code: json['code'],
       message: json['message'],
@@ -24,6 +25,40 @@ class BiliApiResponse<T> {
         "code": code,
         "message": message,
         "ttl": ttl,
+        "data": data,
+      };
+}
+
+class ServerResponse<T> {
+  int code;
+  T? data;
+  String msg;
+
+  ServerResponse(
+    this.code,
+    this.msg, {
+    this.data,
+  });
+
+  factory ServerResponse.fromJson(
+      Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJsonT) {
+    return ServerResponse(
+      json['code'],
+      json['msg'],
+      data: fromJsonT(json['data']),
+    );
+  }
+
+  factory ServerResponse.fromJsonWithoutData(Map<String, dynamic> json) {
+    return ServerResponse(
+      json['code'],
+      json['msg'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "msg": msg,
         "data": data,
       };
 }

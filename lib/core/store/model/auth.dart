@@ -2,20 +2,29 @@ import 'package:hive/hive.dart';
 
 part 'auth.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 0)
 class Auth extends HiveObject {
   @HiveField(0)
-  final String token;
+  final String? token;
+  @HiveField(1)
+  final int? expiresAt;
 
-  Auth({required this.token});
+  Auth({
+    this.token,
+    this.expiresAt,
+  });
 
   factory Auth.fromJson(Map<String, dynamic> json) {
-    return Auth(token: json['token']);
+    return Auth(
+      token: json['token'],
+      expiresAt: json['expiresAt'],
+    );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'token': token,
+      'expiresAt': expiresAt,
     };
   }
 }

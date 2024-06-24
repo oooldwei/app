@@ -9,7 +9,6 @@ class DiscoverPage extends GetView<DiscoverController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("discover".tr),
         ElevatedButton(
           child: Text("存入"),
           onPressed: () => controller.add(DateTime.timestamp().toString()),
@@ -17,6 +16,10 @@ class DiscoverPage extends GetView<DiscoverController> {
         ElevatedButton(
           child: Text("读取"),
           onPressed: controller.find,
+        ),
+        ElevatedButton(
+          child: Text("获取用户列表"),
+          onPressed: controller.getUserList,
         ),
       ],
     );

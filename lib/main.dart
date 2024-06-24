@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeHive();
+  await initHiveServices();
   runApp(const MyApp());
 }
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       // 去掉右上角的debug
       debugShowCheckedModeBanner: false,
       // 初始化主路由
-      initialRoute: AppRoutes.initial,
+      initialRoute: AppRoutes.home,
       // 注册路由信息
       getPages: AppPages.routes,
       // 路由导航观察者，监听路由状态

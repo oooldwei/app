@@ -24,11 +24,7 @@ class ApplicationController extends GetxController {
 
   // tab栏动画
   void handleNavBarTap(int index) {
-    pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.ease,
-    );
+    pageController.jumpToPage(index);
   }
 
   @override

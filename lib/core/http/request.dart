@@ -1,13 +1,18 @@
 import 'package:app/core/http/config.dart';
+import 'package:app/core/router/routes.dart';
+import 'package:app/core/store/model/auth.dart';
+import 'package:app/core/store/store.dart';
 import 'package:app/core/util/logger.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:get/get.dart' as getx;
 
 class HttpUtil {
   static final HttpUtil _instance = HttpUtil._internal();
 
   factory HttpUtil() => _instance;
+  final HiveStore _hiveStore = getx.Get.find();
 
   late Dio _dio;
   CancelToken cancelToken = CancelToken();
@@ -91,7 +96,8 @@ class HttpUtil {
         // TODO 写用户auth操作
         //   UserStore.to.onLogout();
         //   EasyLoading.showError(eInfo.message);
-        logger.i(eInfo.message);
+        getx.Get.offAndToNamed(AppRoutes.login);
+        // logger.i(eInfo.message);
         break;
       default:
         // EasyLoading.showError('未知错误');
@@ -171,12 +177,14 @@ class HttpUtil {
   }
 
   /// 读取本地配置
-  Map<String, dynamic>? getAuthorizationHeader() {
+  Future<Map<String, dynamic>> getAuthorizationHeader() async {
     var headers = <String, dynamic>{};
-    // TODO auth操作
-    // if (Get.isRegistered<UserStore>() && UserStore.to.hasToken == true) {
-    //   headers['Authorization'] = 'Bearer ${UserStore.to.token}';
-    // }
+    if (getx.Get.isRegistered<HiveStore>()) {
+      var auth = await _hiveStore.get<Auth>(HiveStore.keyAuthToken);
+      if (auth.token != '') {
+        headers['X-Token'] = '${auth.token}';
+      }
+    }
     return headers;
   }
 
@@ -206,15 +214,13 @@ class HttpUtil {
       "cacheDisk": cacheDisk,
     });
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
 
     var response = await _dio.get(
       path,
       queryParameters: queryParameters,
-      options: options,
+      options: requestOptions,
       cancelToken: cancelToken,
     );
     return response.data;
@@ -229,10 +235,8 @@ class HttpUtil {
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
     var response = await _dio.post(
       path,
       data: data,
@@ -252,10 +256,8 @@ class HttpUtil {
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
     var response = await _dio.put(
       path,
       data: data,
@@ -275,10 +277,8 @@ class HttpUtil {
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
     var response = await _dio.patch(
       path,
       data: data,
@@ -298,10 +298,8 @@ class HttpUtil {
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
     var response = await _dio.delete(
       path,
       data: data,
@@ -321,10 +319,8 @@ class HttpUtil {
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
     var response = await _dio.post(
       path,
       data: FormData.fromMap(data),
@@ -345,10 +341,8 @@ class HttpUtil {
   }) async {
     Options requestOptions = options ?? Options();
     requestOptions.headers = requestOptions.headers ?? {};
-    Map<String, dynamic>? authorization = getAuthorizationHeader();
-    if (authorization != null) {
-      requestOptions.headers!.addAll(authorization);
-    }
+    Map<String, dynamic> authorization = await getAuthorizationHeader();
+    requestOptions.headers!.addAll(authorization);
     requestOptions.headers!.addAll({
       Headers.contentLengthHeader: dataLength.toString(),
     });
@@ -370,6 +364,7 @@ class ErrorEntity implements Exception {
 
   ErrorEntity({required this.code, required this.message});
 
+  @override
   String toString() {
     if (message == "") return "Exception";
     return "Exception: code $code, $message";

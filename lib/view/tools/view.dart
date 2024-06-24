@@ -34,7 +34,14 @@ class ToolsPage extends GetView<ToolsController> {
           child: const Text("Video跳转"),
           onPressed: () async {
             Get.toNamed(AppRoutes.video);
-            await videoController.getVideInfo(videoController.textController.text);
+            await videoController
+                .getVideInfo(videoController.textController.text);
+          },
+        ),
+        ElevatedButton(
+          child: const Text("测试按钮"),
+          onPressed: () async {
+            controller.test();
           },
         ),
         Row(
