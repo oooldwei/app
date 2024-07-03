@@ -45,6 +45,8 @@ dependencies:
   logger: ^2.2.0
   # 音频播放
   audioplayers: ^6.0.0
+  camera: ^0.11.0+1
+  image_picker: ^1.1.2
   hive: ^2.2.3
   path_provider: ^2.1.3
 
