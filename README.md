@@ -9,7 +9,7 @@ Flutter App 开发脚手架.
 ## 初始化项目
 
 ```shell
-flutter create --project-name app --org com.oldwei .
+flutter create --project-name zhyx --org com.oldwei .
 ```
 
 ### hive

@@ -16,7 +16,7 @@ class DiscoverController extends GetxController {
   }
 
   void find() async {
-    var name = await _hiveStore.get(HiveStore.keyAuth);
+    var name = await _hiveStore.get(HiveStore.keyAuth, "");
     logger.i("查询的结果: $name");
   }
 

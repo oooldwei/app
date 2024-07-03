@@ -28,8 +28,11 @@ class HiveStore extends GetxService {
     await _box.put(key, value);
   }
 
-  Future<T> get<T>(String key, {defaultValue}) async {
+  Future<T> get<T>(String key, T defaultValue) async {
     var value = _box.get(key, defaultValue: defaultValue);
+    if (value == null) {
+      return defaultValue;
+    }
     return value as T;
   }
 

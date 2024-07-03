@@ -180,7 +180,7 @@ class HttpUtil {
   Future<Map<String, dynamic>> getAuthorizationHeader() async {
     var headers = <String, dynamic>{};
     if (getx.Get.isRegistered<HiveStore>()) {
-      var auth = await _hiveStore.get<Auth>(HiveStore.keyAuthToken);
+      var auth = await _hiveStore.get<Auth>(HiveStore.keyAuthToken, Auth());
       if (auth.token != '') {
         headers['X-Token'] = '${auth.token}';
       }
