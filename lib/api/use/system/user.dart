@@ -1,13 +1,11 @@
 import 'package:app/api/model/response.dart';
-import 'package:app/api/model/user.dart';
+import 'package:app/api/model/system/user.dart';
 import 'package:app/core/http/request.dart';
-import 'package:app/core/util/logger.dart';
-import 'package:app/core/util/print_response.dart';
-import 'package:dio/dio.dart';
+import 'package:app/core/store/model/user.dart';
 
 class UserApi {
   /// 查询用户列表
-  static Future<ServerResponse<UserListResponseData>> getUserList({
+  static Future<ServerResponse<DataPage<UserInfo>>> getUserList({
     dynamic data,
     Map<String, dynamic>? params,
   }) async {
@@ -16,8 +14,8 @@ class UserApi {
       queryParameters: params,
       data: data,
     );
-    return ServerResponse<UserListResponseData>.fromJson(
-        response, UserListResponseData.fromJson);
+    return ServerResponse<DataPage<UserInfo>>.fromJson(response,
+        (data) => DataPage.fromJson(data, (item) => UserInfo.fromJson(item)));
   }
 
   /// 查询用户自身信息

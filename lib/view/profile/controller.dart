@@ -1,4 +1,4 @@
-import 'package:app/api/use/user.dart';
+import 'package:app/api/use/system/user.dart';
 import 'package:app/core/store/model/user.dart';
 import 'package:app/core/store/store.dart';
 import 'package:app/core/util/logger.dart';
@@ -14,7 +14,8 @@ class ProfileController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    var userInfo = await _hiveStore.get<UserInfo>(HiveStore.keyUserInfo, UserInfo());
+    var userInfo =
+        await _hiveStore.get<UserInfo>(HiveStore.keyUserInfo, UserInfo());
     state.userInfo.value = userInfo;
     await getUserInfo();
   }

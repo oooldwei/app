@@ -1,4 +1,3 @@
-import 'package:app/api/model/user.dart';
 import 'package:app/core/store/model/user.dart';
 
 class CaptchaResponseData {

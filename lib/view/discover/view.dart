@@ -19,7 +19,7 @@ class DiscoverPage extends GetView<DiscoverController> {
         ),
         ElevatedButton(
           child: Text("获取用户列表"),
-          onPressed: controller.getUserList,
+          onPressed: controller.getHypermarketList,
         ),
       ],
     );

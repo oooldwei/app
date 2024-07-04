@@ -29,6 +29,7 @@ class BiliApiResponse<T> {
       };
 }
 
+/// 通用接口返回格式
 class ServerResponse<T> {
   int code;
   T? data;
@@ -60,5 +61,39 @@ class ServerResponse<T> {
         "code": code,
         "msg": msg,
         "data": data,
+      };
+}
+
+/// 通用分页数据
+class DataPage<T> {
+  List<T>? list;
+  int page;
+  int pageSize;
+  int total;
+
+  DataPage(
+    this.page,
+    this.pageSize,
+    this.total, {
+    this.list,
+  });
+
+  factory DataPage.fromJson(
+      Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJsonT) {
+    return DataPage(
+      json['page'],
+      json['pageSize'],
+      json['total'],
+      list: json['list'] != null
+          ? (json['list'] as List).map((item) => fromJsonT(item)).toList()
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "page": page,
+        "pageSize": pageSize,
+        "total": total,
+        "list": list,
       };
 }
