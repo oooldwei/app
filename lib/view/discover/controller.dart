@@ -27,9 +27,12 @@ class DiscoverController extends GetxController {
     logger.i("查询的结果: ${hypermarketList.data?.list?.length}");
     logger.i(
         "查询的结果: ${hypermarketList.data?.list?.elementAtOrNull(0)?.toJson()}");
-    // logger.i("查询的结果: ${userList.data?.list?.length}");
-    // logger.i("查询的结果: ${userList.data?.list?.elementAtOrNull(0)?.toJson()}");
-    // logger.i("查询的结果: ${userList.data?.list?.elementAtOrNull(1)?.toJson()}");
-    // logger.i("查询的结果: ${userList.data?.list?.elementAtOrNull(2)?.toJson()}");
+    state.hypermarketList.value = hypermarketList.data!.list!;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getHypermarketList();
   }
 }

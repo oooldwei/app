@@ -5,13 +5,15 @@ import 'package:app/view/application/view.dart';
 import 'package:app/view/discover/binding.dart';
 import 'package:app/view/discover/view.dart';
 import 'package:app/view/login/binding.dart';
+import 'package:app/view/login/view.dart';
+import 'package:app/view/product/binding.dart';
+import 'package:app/view/product/view.dart';
 import 'package:app/view/profile/binding.dart';
 import 'package:app/view/profile/view.dart';
 import 'package:app/view/tools/binding.dart';
 import 'package:app/view/tools/view.dart';
 import 'package:app/view/video/binding.dart';
 import 'package:app/view/video/view.dart';
-import 'package:app/view/login/view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,6 +50,11 @@ class AppPages {
       name: AppRoutes.video,
       page: () => const VideoPage(),
       binding: VideoBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.product,
+      page: () => const ProductPage(),
+      binding: ProductBinding(),
     ),
   ];
 }

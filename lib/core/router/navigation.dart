@@ -1,10 +1,10 @@
 import 'package:app/view/discover/view.dart';
+import 'package:app/view/product/view.dart';
 import 'package:app/view/profile/view.dart';
-import 'package:app/view/tools/view.dart';
 import 'package:flutter/material.dart';
 
 // 导航名称
-List<String> bottomNavigationTabTitles = ['discover', 'tools', 'profile'];
+List<String> bottomNavigationTabTitles = ['discover', 'product', 'profile'];
 // 导航按钮
 List<BottomNavigationBarItem> bottomNavigationTabs = <BottomNavigationBarItem>[
   const BottomNavigationBarItem(
@@ -18,12 +18,12 @@ List<BottomNavigationBarItem> bottomNavigationTabs = <BottomNavigationBarItem>[
   ),
   const BottomNavigationBarItem(
     icon: Icon(
-      Icons.settings_applications_outlined,
+      Icons.add_a_photo_outlined,
     ),
     activeIcon: Icon(
-      Icons.settings_applications,
+      Icons.add_a_photo,
     ),
-    label: '工具',
+    label: '商品',
   ),
   const BottomNavigationBarItem(
     icon: Icon(
@@ -40,7 +40,7 @@ List<BottomNavigationBarItem> bottomNavigationTabs = <BottomNavigationBarItem>[
 List<Widget> buildPageView() {
   return const <Widget>[
     DiscoverPage(),
-    ToolsPage(),
+    ProductPage(),
     ProfilePage(),
   ];
 }

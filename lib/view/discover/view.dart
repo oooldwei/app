@@ -1,3 +1,4 @@
+import 'package:app/core/util/logger.dart';
 import 'package:app/view/discover/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,21 +8,29 @@ class DiscoverPage extends GetView<DiscoverController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          child: Text("存入"),
-          onPressed: () => controller.add(DateTime.timestamp().toString()),
-        ),
-        ElevatedButton(
-          child: Text("读取"),
-          onPressed: controller.find,
-        ),
-        ElevatedButton(
-          child: Text("获取用户列表"),
-          onPressed: controller.getHypermarketList,
-        ),
-      ],
+    return Obx(
+      () => CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            floating: true,
+            snap: true,
+            title: Text('超市列表'),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ListTile(
+                  title: Text(
+                      controller.state.hypermarketList.value[index].name ??
+                          'Unknown Name'),
+                  onTap: () => logger.i("111111"),
+                );
+              },
+              childCount: controller.state.hypermarketList.value.length,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

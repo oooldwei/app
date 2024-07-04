@@ -5,6 +5,8 @@ class Hypermarket extends BaseModel {
   String? lng;
   String? location;
   String? name;
+  String? image;
+  String? description;
 
   Hypermarket({
     super.id,
@@ -17,6 +19,8 @@ class Hypermarket extends BaseModel {
     this.lng,
     this.location,
     this.name,
+    this.image,
+    this.description,
   });
 
   factory Hypermarket.fromJson(Map<String, dynamic> json) {
@@ -31,6 +35,8 @@ class Hypermarket extends BaseModel {
       lng: json['lng'],
       location: json['location'],
       name: json['name'],
+      image: json['image'],
+      description: json['description'],
     );
   }
 
@@ -42,6 +48,8 @@ class Hypermarket extends BaseModel {
       'location': location,
       'lng': lng,
       'lat': lat,
+      'image': image,
+      'description': description,
     });
     return json;
   }
