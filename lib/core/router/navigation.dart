@@ -1,6 +1,6 @@
-import 'package:app/view/discover/view.dart';
-import 'package:app/view/product/view.dart';
-import 'package:app/view/profile/view.dart';
+import 'package:app/view/system/profile/view.dart';
+import 'package:app/view/zhyx/hypermarket/view.dart';
+import 'package:app/view/zhyx/product/view.dart';
 import 'package:flutter/material.dart';
 
 // 导航名称
@@ -39,7 +39,7 @@ List<BottomNavigationBarItem> bottomNavigationTabs = <BottomNavigationBarItem>[
 // 按钮对应的页面
 List<Widget> buildPageView() {
   return const <Widget>[
-    DiscoverPage(),
+    HypermarketPage(),
     ProductPage(),
     ProfilePage(),
   ];

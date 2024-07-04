@@ -1,7 +1,7 @@
 import 'package:app/api/model/response.dart';
 import 'package:app/api/model/system/user.dart';
-import 'package:app/api/model/zhyx/hypermarket.dart';
 import 'package:app/core/http/request.dart';
+import 'package:app/view/zhyx/hypermarket/model.dart';
 
 class HypermarketApi {
   /// TODO 创建超市
@@ -42,6 +42,18 @@ class HypermarketApi {
       Map<String, dynamic>? queryParameters) async {
     var response = await HttpUtil().get(
       '/hypermarket/getHypermarketList',
+      queryParameters: queryParameters,
+    );
+    return ServerResponse<DataPage<Hypermarket>>.fromJson(
+        response,
+        (data) =>
+            DataPage.fromJson(data, (item) => Hypermarket.fromJson(item)));
+  }
+
+  static Future<ServerResponse<DataPage<Hypermarket>>>
+      getHypermarketProductList(Map<String, dynamic> queryParameters) async {
+    var response = await HttpUtil().get(
+      '/hypermarket/getHypermarketProductList',
       queryParameters: queryParameters,
     );
     return ServerResponse<DataPage<Hypermarket>>.fromJson(

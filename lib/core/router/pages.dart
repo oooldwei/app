@@ -2,18 +2,23 @@ import 'package:app/core/router/observer.dart';
 import 'package:app/core/router/routes.dart';
 import 'package:app/view/application/binding.dart';
 import 'package:app/view/application/view.dart';
-import 'package:app/view/discover/binding.dart';
-import 'package:app/view/discover/view.dart';
 import 'package:app/view/login/binding.dart';
 import 'package:app/view/login/view.dart';
-import 'package:app/view/product/binding.dart';
-import 'package:app/view/product/view.dart';
-import 'package:app/view/profile/binding.dart';
-import 'package:app/view/profile/view.dart';
-import 'package:app/view/tools/binding.dart';
-import 'package:app/view/tools/view.dart';
-import 'package:app/view/video/binding.dart';
-import 'package:app/view/video/view.dart';
+import 'package:app/view/other/discover/binding.dart';
+import 'package:app/view/other/discover/view.dart';
+import 'package:app/view/other/tools/binding.dart';
+import 'package:app/view/other/tools/view.dart';
+import 'package:app/view/other/video/binding.dart';
+import 'package:app/view/other/video/view.dart';
+import 'package:app/view/system/profile/binding.dart';
+import 'package:app/view/system/profile/view.dart';
+import 'package:app/view/zhyx/hypermarket/binding.dart';
+import 'package:app/view/zhyx/hypermarket/view.dart';
+import 'package:app/view/zhyx/hypermarket/widget/add.dart';
+import 'package:app/view/zhyx/hypermarket/widget/detail.dart';
+import 'package:app/view/zhyx/product/binding.dart';
+import 'package:app/view/zhyx/product/view.dart';
+import 'package:app/view/zhyx/product/widget/add.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,6 +60,26 @@ class AppPages {
       name: AppRoutes.product,
       page: () => const ProductPage(),
       binding: ProductBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.productAdd,
+      page: () => const ProductAddPage(),
+      binding: ProductBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.hypermarket,
+      page: () => const HypermarketPage(),
+      binding: HypermarketBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.hypermarketAdd,
+      page: () => const HypermarketAddPage(),
+      binding: HypermarketBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.hypermarketDetail,
+      page: () => const HypermarketDetailPage(),
+      binding: HypermarketBinding(),
     ),
   ];
 }
