@@ -1,4 +1,4 @@
-import 'package:app/api/use/system/user.dart';
+import 'package:app/api/system/user.dart';
 import 'package:app/core/store/model/user.dart';
 import 'package:app/core/store/store.dart';
 import 'package:app/core/util/logger.dart';

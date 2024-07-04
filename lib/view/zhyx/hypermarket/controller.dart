@@ -1,4 +1,5 @@
-import 'package:app/api/use/zhyx/hypermarket.dart';
+import 'package:app/api/zhyx/hypermarket.dart';
+import 'package:app/api/zhyx/product.dart';
 import 'package:app/core/store/store.dart';
 import 'package:app/core/util/logger.dart';
 import 'package:app/view/zhyx/hypermarket/state.dart';
@@ -34,14 +35,17 @@ class HypermarketController extends GetxController {
 
   // 获取超市商品列表
   Future<dynamic> getHypermarketProductList(hypermarketId) async {
-    Map<String, dynamic> queryParameters = {
+    logger.i("看看传过来的ID: ${hypermarketId}");
+    Map<String, dynamic> params = {
       "page": 1,
       "pageSize": 10,
       "hypermarketId": hypermarketId
     };
-    var hypermarketProductList =
-        await HypermarketApi.getHypermarketProductList(queryParameters);
-    logger.i("查询的结果: ${hypermarketProductList}");
+    // var hypermarketProductList =
+    //     await HypermarketApi.getHypermarketProductList(queryParameters);
+    var hypermarketProductList = await ProductApi.getProductList(params);
+    logger.i("查询的结果: ${hypermarketProductList.data!.list![0].toJson()}");
+    state.productList.value = hypermarketProductList.data!.list!;
     return hypermarketProductList;
   }
 

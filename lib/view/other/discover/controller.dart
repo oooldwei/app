@@ -1,4 +1,4 @@
-import 'package:app/api/use/zhyx/hypermarket.dart';
+import 'package:app/api/zhyx/hypermarket.dart';
 import 'package:app/core/store/store.dart';
 import 'package:app/core/util/logger.dart';
 import 'package:app/view/other/discover/state.dart';

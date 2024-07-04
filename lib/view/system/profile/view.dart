@@ -1,4 +1,4 @@
-import 'package:app/api/use/base.dart';
+import 'package:app/api/base.dart';
 import 'package:app/core/router/routes.dart';
 import 'package:app/core/util/logger.dart';
 import 'package:app/view/system/profile/controller.dart';
