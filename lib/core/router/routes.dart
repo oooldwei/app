@@ -3,6 +3,7 @@ class AppRoutes {
 
   static const login = '/system/login';
   static const profile = '/system/profile';
+  static const qrcode = '/system/qrcode';
 
   static const discover = '/discover';
   static const tools = '/tools';

@@ -32,6 +32,13 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
                           }
                           return null;
                         },
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.qr_code_scanner),
+                          onPressed: () {
+                            // 调用二维码扫描功能
+                            controller.scanBarcode();
+                          },
+                        ),
                       ),
                       const SizedBox(height: 16.0),
                       _buildTextFormField(
@@ -47,7 +54,7 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
                       const SizedBox(height: 16.0),
                       controller.state.product.value.image == null ||
                               controller.state.product.value.image == ""
-                          ? Text("暂无图片")
+                          ? Text("暂无图片 ${controller.state.product.value.image}")
                           : Center(
                               child: Image.network(
                                 controller.state.product.value.image!,
@@ -56,39 +63,6 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                      // const SizedBox(height: 16.0),
-                      // _buildTextFormField(
-                      //   controller: controller.placeOriginController,
-                      //   labelText: '产地',
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return '请输入商品产地';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      // const SizedBox(height: 16.0),
-                      // _buildTextFormField(
-                      //   controller: controller.normController,
-                      //   labelText: '规格',
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return '请输入商品规格';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      // const SizedBox(height: 16.0),
-                      // _buildTextFormField(
-                      //   controller: controller.unitController,
-                      //   labelText: '计价单位',
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return '请输入商品计价单位';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
                       const SizedBox(height: 24.0),
                       Center(
                         child: ElevatedButton(
@@ -125,6 +99,7 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
     required TextEditingController controller,
     required String labelText,
     String? Function(String?)? validator,
+    Widget? suffixIcon,
   }) {
     return TextFormField(
       controller: controller,
@@ -133,6 +108,7 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
+        suffixIcon: suffixIcon,
       ),
       validator: validator,
     );

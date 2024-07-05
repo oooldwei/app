@@ -12,6 +12,8 @@ import 'package:app/view/other/video/binding.dart';
 import 'package:app/view/other/video/view.dart';
 import 'package:app/view/system/profile/binding.dart';
 import 'package:app/view/system/profile/view.dart';
+import 'package:app/view/system/qr_scan/binding.dart';
+import 'package:app/view/system/qr_scan/view.dart';
 import 'package:app/view/zhyx/hypermarket/binding.dart';
 import 'package:app/view/zhyx/hypermarket/view.dart';
 import 'package:app/view/zhyx/hypermarket/widget/hypermarket_add.dart';
@@ -41,6 +43,11 @@ class AppPages {
       name: AppRoutes.profile,
       page: () => const ProfilePage(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.qrcode,
+      page: () => const QRScanPage(),
+      binding: QRScanBinding(),
     ),
     GetPage(
       name: AppRoutes.tools,

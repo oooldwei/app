@@ -1,5 +1,7 @@
 class Product {
   String? name; // 商品名称
+  String? barcode; // 商品名称
+  String? sn; // 商品名称
   String? sku; // 最小存货单位
   String? image; // 图片
   String? placeOrigin; // 产地
@@ -8,6 +10,8 @@ class Product {
 
   Product({
     this.name,
+    this.barcode,
+    this.sn,
     this.sku,
     this.image,
     this.placeOrigin,
@@ -19,6 +23,8 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       name: json['name'],
+      barcode: json['barcode'],
+      sn: json['sn'],
       sku: json['sku'],
       image: json['image'],
       placeOrigin: json['placeOrigin'],
@@ -31,6 +37,8 @@ class Product {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
+      'barcode': barcode,
+      'sn': sn,
       'sku': sku,
       'image': image,
       'placeOrigin': placeOrigin,
