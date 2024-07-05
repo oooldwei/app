@@ -7,4 +7,6 @@ class HypermarketState {
       Rx<List<Hypermarket>>(List.empty(growable: true));
 
   Rx<List<Product>> productList = Rx<List<Product>>(List.empty(growable: true));
+  Rx<String> barcode = "".obs;
+  Rx<Product> product = Rx<Product>(Product());
 }

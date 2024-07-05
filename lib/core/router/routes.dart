@@ -14,5 +14,6 @@ class AppRoutes {
   static const productAdd = '/zhyx/product/add';
   static const hypermarket = '/zhyx/hypermarket';
   static const hypermarketAdd = '/zhyx/hypermarket/add';
+  static const hypermarketProductAdd = '/zhyx/hypermarket/product/add';
   static const hypermarketDetail = '/zhyx/hypermarket/detail';
 }

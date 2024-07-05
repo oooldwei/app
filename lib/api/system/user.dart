@@ -15,7 +15,8 @@ class UserApi {
       data: data,
     );
     return ServerResponse<DataPage<UserInfo>>.fromJson(response,
-        (data) => DataPage.fromJson(data, (item) => UserInfo.fromJson(item)));
+        fromJsonT: (data) =>
+            DataPage.fromJson(data, (item) => UserInfo.fromJson(item)));
   }
 
   /// 查询用户自身信息
@@ -23,7 +24,7 @@ class UserApi {
     var response = await HttpUtil().get(
       '/user/getUserInfo',
     );
-    return ServerResponse<UserInfoResponseData>.fromJson(
-        response, UserInfoResponseData.fromJson);
+    return ServerResponse<UserInfoResponseData>.fromJson(response,
+        fromJsonT: UserInfoResponseData.fromJson);
   }
 }

@@ -13,7 +13,7 @@ class ProductApi {
       queryParameters: params,
       data: data,
     );
-    return ServerResponse<dynamic>.fromJsonWithoutData(response);
+    return ServerResponse<dynamic>.fromJson(response);
   }
 
   static Future<ServerResponse<DataPage<Product>>> getProductList(
@@ -25,6 +25,7 @@ class ProductApi {
     );
     logger.i("坎坎坷坷: ${response.toString()}");
     return ServerResponse<DataPage<Product>>.fromJson(response,
-        (data) => DataPage.fromJson(data, (item) => Product.fromJson(item)));
+        fromJsonT: (data) =>
+            DataPage.fromJson(data, (item) => Product.fromJson(item)));
   }
 }

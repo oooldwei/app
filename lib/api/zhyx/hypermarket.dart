@@ -1,6 +1,7 @@
 import 'package:app/api/model/response.dart';
 import 'package:app/api/model/system/user.dart';
 import 'package:app/core/http/request.dart';
+import 'package:app/core/util/logger.dart';
 import 'package:app/view/zhyx/hypermarket/model.dart';
 
 class HypermarketApi {
@@ -23,8 +24,8 @@ class HypermarketApi {
       '/hypermarket/deleteHypermarket',
       queryParameters: params,
     );
-    return ServerResponse<UserInfoResponseData>.fromJson(
-        response, UserInfoResponseData.fromJson);
+    return ServerResponse<UserInfoResponseData>.fromJson(response,
+        fromJsonT: UserInfoResponseData.fromJson);
   }
 
   /// TODO 用id查询超市
@@ -33,8 +34,8 @@ class HypermarketApi {
       '/hypermarket/findHypermarket',
       queryParameters: params,
     );
-    return ServerResponse<UserInfoResponseData>.fromJson(
-        response, UserInfoResponseData.fromJson);
+    return ServerResponse<UserInfoResponseData>.fromJson(response,
+        fromJsonT: UserInfoResponseData.fromJson);
   }
 
   /// 分页获取超市列表
@@ -44,9 +45,8 @@ class HypermarketApi {
       '/hypermarket/getHypermarketList',
       queryParameters: queryParameters,
     );
-    return ServerResponse<DataPage<Hypermarket>>.fromJson(
-        response,
-        (data) =>
+    return ServerResponse<DataPage<Hypermarket>>.fromJson(response,
+        fromJsonT: (data) =>
             DataPage.fromJson(data, (item) => Hypermarket.fromJson(item)));
   }
 
@@ -56,9 +56,9 @@ class HypermarketApi {
       '/hypermarket/getHypermarketProductList',
       queryParameters: queryParameters,
     );
-    return ServerResponse<DataPage<Hypermarket>>.fromJson(
-        response,
-        (data) =>
+    logger.i("超市商品列表: ${response.toString()}");
+    return ServerResponse<DataPage<Hypermarket>>.fromJson(response,
+        fromJsonT: (data) =>
             DataPage.fromJson(data, (item) => Hypermarket.fromJson(item)));
   }
 }

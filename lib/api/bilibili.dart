@@ -2,7 +2,6 @@ import 'package:app/api/model/player_playurl.dart';
 import 'package:app/api/model/response.dart';
 import 'package:app/api/model/web_interface.dart';
 import 'package:app/core/http/request.dart';
-import 'package:app/core/util/logger.dart';
 
 class BilibiliApi {
   /// 查询bvid信息

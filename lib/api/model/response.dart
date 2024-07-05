@@ -41,19 +41,12 @@ class ServerResponse<T> {
     this.data,
   });
 
-  factory ServerResponse.fromJson(
-      Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJsonT) {
+  factory ServerResponse.fromJson(Map<String, dynamic> json,
+      {T Function(Map<String, dynamic>)? fromJsonT}) {
     return ServerResponse(
-      json['code'],
-      json['msg'],
-      data: fromJsonT(json['data']),
-    );
-  }
-
-  factory ServerResponse.fromJsonWithoutData(Map<String, dynamic> json) {
-    return ServerResponse(
-      json['code'],
-      json['msg'],
+      json['code'] ?? json['Code'],
+      json['msg'] ?? json['Msg'],
+      data: fromJsonT != null ? fromJsonT(json['data'] ?? json['Data']) : null,
     );
   }
 

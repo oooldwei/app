@@ -21,6 +21,7 @@ class ProductAddPage extends GetView<ProductAddController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 16.0),
                   _buildTextFormField(
                     controller: controller.nameController,
                     labelText: '商品名称',

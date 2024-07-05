@@ -14,11 +14,12 @@ import 'package:app/view/system/profile/binding.dart';
 import 'package:app/view/system/profile/view.dart';
 import 'package:app/view/zhyx/hypermarket/binding.dart';
 import 'package:app/view/zhyx/hypermarket/view.dart';
-import 'package:app/view/zhyx/hypermarket/widget/add.dart';
-import 'package:app/view/zhyx/hypermarket/widget/detail.dart';
+import 'package:app/view/zhyx/hypermarket/widget/hypermarket_add.dart';
+import 'package:app/view/zhyx/hypermarket/widget/product_add.dart';
+import 'package:app/view/zhyx/hypermarket/widget/product_list.dart';
 import 'package:app/view/zhyx/product/binding.dart';
 import 'package:app/view/zhyx/product/view.dart';
-import 'package:app/view/zhyx/product/widget/add.dart';
+import 'package:app/view/zhyx/product/widget/product_add.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -77,8 +78,13 @@ class AppPages {
       binding: HypermarketBinding(),
     ),
     GetPage(
+      name: AppRoutes.hypermarketProductAdd,
+      page: () => const HypermarketProductAddPage(),
+      binding: HypermarketBinding(),
+    ),
+    GetPage(
       name: AppRoutes.hypermarketDetail,
-      page: () => const HypermarketDetailPage(),
+      page: () => const HypermarketProductListPage(),
       binding: HypermarketBinding(),
     ),
   ];

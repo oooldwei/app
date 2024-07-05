@@ -1,5 +1,5 @@
 import 'package:app/api/base.dart';
-import 'package:app/api/model/base.dart';
+import 'package:app/api/model/system/login.dart';
 import 'package:app/core/router/routes.dart';
 import 'package:app/core/store/model/auth.dart';
 import 'package:app/core/store/store.dart';

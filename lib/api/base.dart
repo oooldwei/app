@@ -1,5 +1,5 @@
-import 'package:app/api/model/base.dart';
 import 'package:app/api/model/response.dart';
+import 'package:app/api/model/system/login.dart';
 import 'package:app/core/http/request.dart';
 import 'package:app/core/util/logger.dart';
 
@@ -9,8 +9,8 @@ class BaseApi {
     var response = await HttpUtil().post(
       '/base/captcha',
     );
-    return ServerResponse<CaptchaResponseData>.fromJson(
-        response, CaptchaResponseData.fromJson);
+    return ServerResponse<CaptchaResponseData>.fromJson(response,
+        fromJsonT: CaptchaResponseData.fromJson);
   }
 
   /// 登录接口
@@ -23,8 +23,8 @@ class BaseApi {
       queryParameters: params,
       data: data,
     );
-    return ServerResponse<LoginResponseData>.fromJson(
-        response, LoginResponseData.fromJson);
+    return ServerResponse<LoginResponseData>.fromJson(response,
+        fromJsonT: LoginResponseData.fromJson);
   }
 
   /// 退出接口
@@ -33,6 +33,6 @@ class BaseApi {
       '/jwt/jsonInBlacklist',
     );
     logger.i("返回: ${response.toString()}");
-    return ServerResponse.fromJsonWithoutData(response);
+    return ServerResponse.fromJson(response);
   }
 }

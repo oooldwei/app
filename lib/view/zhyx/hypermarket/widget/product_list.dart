@@ -3,8 +3,8 @@ import 'package:app/view/zhyx/hypermarket/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HypermarketDetailPage extends GetView<HypermarketController> {
-  const HypermarketDetailPage({super.key});
+class HypermarketProductListPage extends GetView<HypermarketController> {
+  const HypermarketProductListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HypermarketDetailPage extends GetView<HypermarketController> {
             icon: const Icon(Icons.add),
             onPressed: () {
               // 跳转到新增商品页面，假设路由名为'/product/add'
-              Get.toNamed(AppRoutes.productAdd);
+              Get.toNamed(AppRoutes.hypermarketProductAdd);
             },
           ),
         ],
