@@ -1,6 +1,6 @@
 import 'package:app/view/system/profile/view.dart';
 import 'package:app/view/zhyx/hypermarket/view.dart';
-import 'package:app/view/zhyx/product/view.dart';
+import 'package:app/view/zhyx/hypermarket/widget/product_add.dart';
 import 'package:flutter/material.dart';
 
 // 导航名称
@@ -40,7 +40,7 @@ List<BottomNavigationBarItem> bottomNavigationTabs = <BottomNavigationBarItem>[
 List<Widget> buildPageView() {
   return const <Widget>[
     HypermarketPage(),
-    ProductPage(),
+    HypermarketProductAddPage(),
     ProfilePage(),
   ];
 }

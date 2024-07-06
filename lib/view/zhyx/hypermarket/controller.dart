@@ -1,4 +1,5 @@
 import 'package:app/api/zhyx/hypermarket.dart';
+import 'package:app/api/zhyx/price.dart';
 import 'package:app/api/zhyx/product.dart';
 import 'package:app/core/store/store.dart';
 import 'package:app/core/util/logger.dart';
@@ -18,6 +19,7 @@ class HypermarketController extends GetxController {
   final productAddFormKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
+  final priceController = TextEditingController();
   final barcodeController = TextEditingController();
   final skuController = TextEditingController();
   final imageController = TextEditingController();
@@ -65,27 +67,21 @@ class HypermarketController extends GetxController {
 
   void addProduct() async {
     // 提交表单
-    final product = Product(
-      barcode: state.product.value.barcode,
-      sn: state.product.value.sn,
-      name: state.product.value.name,
-      sku: state.product.value.sku,
-      image: state.product.value.image,
-      placeOrigin: state.product.value.placeOrigin,
-      norm: state.product.value.norm,
-      unit: state.product.value.unit,
-    );
     // 添加商品逻辑，例如将商品添加到列表或发送到服务器
-    var createProduct = await ProductApi.createProduct(data: product);
-    logger.i('Product added 结果: ${createProduct.toJson()}');
-    state.barcode.value = "";
+    var body = {
+      "hypermarketId": state.hypermarketId.value,
+      "productId": state.product.value.id,
+      "price": int.parse(priceController.text),
+    };
+    logger.i("打印餐素: ${body.toString()}");
+    var createPrice = await PriceApi.createPrice(data: body);
+    logger.i("${createPrice.toJson()}");
     state.product.value = Product();
   }
 
   void scanBarcode() async {
     Get.lazyPut(() => QRScanController());
     String? barcode = await Get.to(() => const QRScanPage());
-    logger.i("这也可以吗???????? $barcode");
     if (barcode != null) {
       barcodeController.text = barcode;
     }
@@ -94,57 +90,88 @@ class HypermarketController extends GetxController {
   void barcodeListener() {
     barcodeController.addListener(() {
       // 更新 text 的值
-      state.barcode.value = barcodeController.text;
-      handleQueryBarcode();
+      handleQueryBarcode(barcodeController.text);
     });
   }
 
+  // 查询数据库是否存在barcode
+  Future<String> queryBarcode(barcode) async {
+    var response = await ProductApi.getProductByBarcode({"barcode": barcode});
+    if (response.code == 0) {
+      var data = response.data;
+      state.product.update((prod) {
+        prod?.id = data?.id;
+        prod?.name = data?.name;
+        prod?.barcode = data?.barcode;
+        prod?.sn = data?.sn;
+        prod?.placeOrigin = data?.placeOrigin;
+        prod?.image = data?.image;
+      });
+      nameController.text = state.product.value.name!;
+      placeOriginController.text = state.product.value.placeOrigin!;
+      imageController.text = state.product.value.image!;
+      logger.i("${state.product.value.image}");
+      return "${response.data?.id}";
+    } else {
+      return "";
+    }
+  }
+
   // 处理文本变化的方法
-  void handleQueryBarcode() async {
-    var barcode = state.barcode.value;
+  void handleQueryBarcode(barcode) async {
     if (barcode.length < 13 || barcode.length > 14) {
       return;
     }
-    logger.i("看看barcode: $barcode");
-    // 可以在这里添加其他逻辑处理
-    if (barcode.length == 13 || barcode.length > 14) {
+    if (barcode.length == 13) {
       barcode = "0$barcode";
     }
-    // 创建新的Dio实例
-    Dio dio = Dio();
-    try {
-      await dio.get(
-          "https://bff.gds.org.cn/gds/searching-api/productservice/gettypeentitythirdcommoninfoasync?productCategoryCode=10000607&typeSource=GPC");
-      var response = await dio.get(
-          "https://bff.gds.org.cn/gds/searching-api/ProductService/ProductListByGTIN?PageSize=30&PageIndex=1&SearchItem=$barcode");
-      logger.i("看看结果: ${response.toString()}");
-      var data = response.data["Data"]["Items"][0] as Map<String, dynamic>;
-      // logger.i("看看结果111111: ${data.toString()}");
-      // var result = ServerResponse<Pagination>.fromJson(
-      //     response.data as Map<String, dynamic>,
-      //     fromJsonT: Pagination.fromJson);
-      // logger.i("看看结果: ${result.data.toString()}");
-      // logger.i("看看结果: ${result.data!.items![0].pictureFilename}");
+    // 通过barcode查询数据库是否存在
+    var pid = await queryBarcode(barcode);
+    if (pid == "") {
+      // 查询并新增商品信息
+      // 创建新的Dio实例
+      Dio dio = Dio();
+      try {
+        await dio.get(
+            "https://bff.gds.org.cn/gds/searching-api/productservice/gettypeentitythirdcommoninfoasync?productCategoryCode=10000607&typeSource=GPC");
+        var response = await dio.get(
+            "https://bff.gds.org.cn/gds/searching-api/ProductService/ProductListByGTIN?PageSize=30&PageIndex=1&SearchItem=$barcode");
+        logger.i("看看结果: ${response.toString()}");
+        var data = response.data["Data"]["Items"][0] as Map<String, dynamic>;
+        state.product.update((prod) {
+          prod?.name = data["description"];
+          prod?.barcode = data["gtin"];
+          prod?.sn = data["base_id"];
+          prod?.placeOrigin = data["firm_name"];
+          prod?.image = data["picture_filename"] != null
+              ? "https://oss.gds.org.cn${data["picture_filename"]}"
+              : "";
+        });
+        if (state.product.value.barcode != null &&
+            state.product.value.barcode != "") {
+          var createResponse =
+              await ProductApi.createProduct(data: state.product.value);
+          logger.i("新增商品返回: ${createResponse.data?.id}");
+          state.product.update((prod) {
+            prod?.id = createResponse.data?.id;
+          });
+          pid = "${createResponse.data?.id}";
+        }
+        nameController.text = data["description"];
+        placeOriginController.text = data["firm_name"];
 
-      state.product.update((prod) {
-        prod?.name = data["description"];
-        prod?.barcode = data["gtin"];
-        prod?.sn = data["base_id"];
-        prod?.placeOrigin = data["firm_name"];
-        prod?.sku = data["gtin"];
-        prod?.image = data["picture_filename"] != null
-            ? "https://oss.gds.org.cn${data["picture_filename"]}"
-            : "";
-      });
+        // https://www.gds.org.cn/#/barcodeList/index?type=barcode&keyword=6976575154117
 
-      nameController.text = data["description"];
-      placeOriginController.text = data["firm_name"];
-      skuController.text = data["gtin"];
-      imageController.text =
-          "https://oss.gds.org.cn${data["picture_filename"]}";
-    } finally {
-      dio.close(force: true);
-      logger.i("关闭连接");
+        /// TODO 解决反序列化对象失败
+        // logger.i("看看结果111111: ${response.data.toString()}");
+        // var result = ServerResponse<Pagination>.fromJson(response.data,
+        //     fromJsonT: Pagination.fromJson);
+        // logger.i("看看结果000000: ${result.data.toString()}");
+        // toastInfo(msg: '${result.data!.items![0].description}');
+      } finally {
+        dio.close(force: true);
+        logger.i("关闭连接");
+      }
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:app/core/router/routes.dart';
+import 'package:app/core/util/logger.dart';
 import 'package:app/view/zhyx/hypermarket/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,8 +19,10 @@ class HypermarketProductListPage extends GetView<HypermarketController> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
+              logger.i("等一下: ${hypermarketId}");
               // 跳转到新增商品页面，假设路由名为'/product/add'
-              Get.toNamed(AppRoutes.hypermarketProductAdd);
+              Get.toNamed(AppRoutes.hypermarketProductAdd,
+                  arguments: hypermarketId);
             },
           ),
         ],

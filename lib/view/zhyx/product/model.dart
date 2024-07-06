@@ -1,4 +1,6 @@
-class Product {
+import 'package:app/api/model/base_model.dart';
+
+class Product extends BaseModel {
   String? name; // 商品名称
   String? barcode; // 商品名称
   String? sn; // 商品名称
@@ -9,6 +11,12 @@ class Product {
   String? unit; // 计价单位
 
   Product({
+    super.id,
+    super.createdAt,
+    super.updatedAt,
+    super.createdBy,
+    super.updatedBy,
+    super.deletedBy,
     this.name,
     this.barcode,
     this.sn,
@@ -22,6 +30,14 @@ class Product {
   // 将 JSON 数据转换为 Product 对象
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      id: json['ID'],
+      createdAt:
+          json['CreatedAt'] != null ? DateTime.parse(json['CreatedAt']) : null,
+      updatedAt:
+          json['UpdatedAt'] != null ? DateTime.parse(json['UpdatedAt']) : null,
+      createdBy: json['CreatedBy'],
+      updatedBy: json['UpdatedBy'],
+      deletedBy: json['DeletedBy'],
       name: json['name'],
       barcode: json['barcode'],
       sn: json['sn'],
@@ -34,8 +50,10 @@ class Product {
   }
 
   // 将 Product 对象转换为 JSON 数据
+  @override
   Map<String, dynamic> toJson() {
-    return {
+    final json = super.toJson();
+    json.addAll({
       'name': name,
       'barcode': barcode,
       'sn': sn,
@@ -44,6 +62,7 @@ class Product {
       'placeOrigin': placeOrigin,
       'norm': norm,
       'unit': unit,
-    };
+    });
+    return json;
   }
 }

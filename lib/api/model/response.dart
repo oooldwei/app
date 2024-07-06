@@ -46,7 +46,9 @@ class ServerResponse<T> {
     return ServerResponse(
       json['code'] ?? json['Code'],
       json['msg'] ?? json['Msg'],
-      data: fromJsonT != null ? fromJsonT(json['data'] ?? json['Data']) : null,
+      data: fromJsonT != null && (json['data'] ?? json['Data']) != null
+          ? fromJsonT(json['data'] ?? json['Data'])
+          : null,
     );
   }
 

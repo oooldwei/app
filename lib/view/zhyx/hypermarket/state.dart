@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 class HypermarketState {
   Rx<List<Hypermarket>> hypermarketList =
       Rx<List<Hypermarket>>(List.empty(growable: true));
-
   Rx<List<Product>> productList = Rx<List<Product>>(List.empty(growable: true));
-  Rx<String> barcode = "".obs;
+  Rx<int> hypermarketId = 0.obs;
   Rx<Product> product = Rx<Product>(Product());
 }

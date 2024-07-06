@@ -4,7 +4,7 @@ import 'package:app/core/util/logger.dart';
 import 'package:app/view/zhyx/product/model.dart';
 
 class ProductApi {
-  static Future<ServerResponse<dynamic>> createProduct({
+  static Future<ServerResponse<Product>> createProduct({
     dynamic data,
     Map<String, dynamic>? params,
   }) async {
@@ -13,7 +13,8 @@ class ProductApi {
       queryParameters: params,
       data: data,
     );
-    return ServerResponse<dynamic>.fromJson(response);
+    return ServerResponse<Product>.fromJson(response,
+        fromJsonT: Product.fromJson);
   }
 
   static Future<ServerResponse<DataPage<Product>>> getProductList(
@@ -23,9 +24,34 @@ class ProductApi {
       '/product/getProductList',
       queryParameters: params,
     );
-    logger.i("坎坎坷坷: ${response.toString()}");
     return ServerResponse<DataPage<Product>>.fromJson(response,
         fromJsonT: (data) =>
             DataPage.fromJson(data, (item) => Product.fromJson(item)));
+  }
+
+  /// 用barcode查询商品
+  static Future<ServerResponse<Product>> getProductByBarcode(
+    Map<String, dynamic> params,
+  ) async {
+    var response = await HttpUtil().get(
+      '/product/findProductByBarcode',
+      queryParameters: params,
+    );
+    logger.i("坎坎坷坷: ${response.toString()}");
+    return ServerResponse<Product>.fromJson(response,
+        fromJsonT: Product.fromJson);
+  }
+
+  /// 用productId查询商品
+  static Future<ServerResponse<Product>> getProductById(
+    String productId,
+    Map<String, dynamic> params,
+  ) async {
+    var response = await HttpUtil().get(
+      '/product/findProductByProductId/$productId',
+      queryParameters: params,
+    );
+    return ServerResponse<Product>.fromJson(response,
+        fromJsonT: Product.fromJson);
   }
 }

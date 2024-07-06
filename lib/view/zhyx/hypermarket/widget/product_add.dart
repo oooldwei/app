@@ -1,4 +1,7 @@
+import 'package:app/core/util/logger.dart';
 import 'package:app/view/zhyx/hypermarket/controller.dart';
+import 'package:app/view/zhyx/hypermarket/model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +10,9 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
 
   @override
   Widget build(BuildContext context) {
+    final int? hypermarketId = Get.arguments;
+    controller.state.hypermarketId.value = hypermarketId ?? 0;
+    // logger.i("页面接收: ${controller.state.hypermarketId.value}");
     return Obx(() => GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
@@ -33,7 +39,7 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
                           return null;
                         },
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.qr_code_scanner),
+                          icon: const Icon(Icons.qr_code_scanner),
                           onPressed: () {
                             // 调用二维码扫描功能
                             controller.scanBarcode();
@@ -52,17 +58,50 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
                         },
                       ),
                       const SizedBox(height: 16.0),
-                      controller.state.product.value.image == null ||
-                              controller.state.product.value.image == ""
-                          ? Text("暂无图片 ${controller.state.product.value.image}")
-                          : Center(
+                      _buildDropdownSearch(
+                        labelText: '超市名称',
+                        items: controller.state.hypermarketList.value,
+                        onChanged: (value) {
+                          logger.i("超市ID: ${value?.id}");
+                          controller.state.hypermarketId.value = value?.id ?? 0;
+                        },
+                        defaultItem: controller.state.hypermarketId.value == 0
+                            ? null
+                            : controller.state.hypermarketList.value.firstWhere(
+                                (hypermarket) =>
+                                    hypermarket.id ==
+                                    controller.state.hypermarketId.value),
+                        validator: (value) {
+                          if (value == null) {
+                            return '请选择超市名称';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16.0),
+                      _buildTextFormField(
+                        controller: controller.priceController,
+                        labelText: '商品价格',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return '请输入商品价格';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16.0),
+                      controller.state.product.value.image != null &&
+                              controller.state.product.value.image != ""
+                          ? Center(
                               child: Image.network(
                                 controller.state.product.value.image!,
                                 width: 180,
                                 height: 180,
                                 fit: BoxFit.cover,
                               ),
-                            ),
+                            )
+                          : Text(
+                              "暂无图片 ${controller.state.product.value.image}"),
                       const SizedBox(height: 24.0),
                       Center(
                         child: ElevatedButton(
@@ -110,6 +149,31 @@ class HypermarketProductAddPage extends GetView<HypermarketController> {
         ),
         suffixIcon: suffixIcon,
       ),
+      validator: validator,
+    );
+  }
+
+  Widget _buildDropdownSearch({
+    required String labelText,
+    required List<Hypermarket> items,
+    required void Function(Hypermarket?) onChanged,
+    String? Function(Hypermarket?)? validator,
+    Hypermarket? defaultItem,
+  }) {
+    return DropdownSearch<Hypermarket>(
+      popupProps: PopupProps.modalBottomSheet(),
+      itemAsString: (Hypermarket h) => h.name ?? "",
+      items: items,
+      selectedItem: defaultItem,
+      dropdownDecoratorProps: DropDownDecoratorProps(
+        dropdownSearchDecoration: InputDecoration(
+          labelText: labelText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+      ),
+      onChanged: onChanged,
       validator: validator,
     );
   }

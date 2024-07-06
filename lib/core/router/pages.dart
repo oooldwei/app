@@ -16,7 +16,7 @@ import 'package:app/view/system/qr_scan/binding.dart';
 import 'package:app/view/system/qr_scan/view.dart';
 import 'package:app/view/zhyx/hypermarket/binding.dart';
 import 'package:app/view/zhyx/hypermarket/view.dart';
-import 'package:app/view/zhyx/hypermarket/widget/hypermarket_add.dart';
+import 'package:app/view/zhyx/hypermarket/widget/add.dart';
 import 'package:app/view/zhyx/hypermarket/widget/product_add.dart';
 import 'package:app/view/zhyx/hypermarket/widget/product_list.dart';
 import 'package:app/view/zhyx/product/binding.dart';
@@ -45,7 +45,7 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: AppRoutes.qrcode,
+      name: AppRoutes.qrScan,
       page: () => const QRScanPage(),
       binding: QRScanBinding(),
     ),
