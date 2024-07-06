@@ -61,8 +61,8 @@ class HypermarketController extends GetxController {
     var hypermarketProductList =
         await HypermarketApi.getHypermarketProductList(params);
     // var hypermarketProductList = await ProductApi.getProductList(params);
-    // logger.i("查询的结果: ${hypermarketProductList.data!.list![0].toJson()}");
-    // state.productList.value = hypermarketProductList.data!.list!;
+    logger.i("查询的结果: ${hypermarketProductList.data!.list![0].toJson()}");
+    state.productList.value = hypermarketProductList.data!.list!;
   }
 
   void addProduct() async {

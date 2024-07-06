@@ -44,19 +44,20 @@ class HypermarketProductListPage extends GetView<HypermarketController> {
                     elevation: 3,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
-                      // leading: Image.network(
-                      //   product.image ?? 'https://picsum.photos/300/300',
-                      //   fit: BoxFit.cover,
-                      //   width: 50,
-                      //   height: 50,
-                      // ),
+                      leading: Image.network(
+                        product.image ??
+                            'https://oss.gds.org.cn/userfile1/wechat/2023592993617901271.png',
+                        fit: BoxFit.cover,
+                        width: 50,
+                        height: 50,
+                      ),
                       title: Text(
                         product.name ?? 'Unknown Name',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                       subtitle: Text(
-                        'SKU: ${product.sku}\n产地: ${product.placeOrigin}\n规格: ${product.norm}\n计价单位: ${product.unit}',
+                        '条码: ${product.barcode}\n产地: ${product.placeOrigin}\n规格: ${product.norm}\n计价单位: ${product.unit}',
                         style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                       ),
                       trailing:
