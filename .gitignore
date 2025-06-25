@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -15,6 +17,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+.fvm/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -43,12 +46,12 @@ app.*.map.json
 /android/app/release
 
 # Other
-lib/generated_plugin_registrant.dart
 /ios/build
 coverage/
 /android/app/.cxx
 
 pubspec.lock
+devtools_options.yaml
 
 # flutter create .
 ios/
@@ -58,3 +61,7 @@ macos/
 test/
 web/
 windows/
+
+# hive dart run build_runner build
+*.g.dart
+.metadata

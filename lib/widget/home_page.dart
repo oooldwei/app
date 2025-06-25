@@ -1,4 +1,4 @@
-import 'package:app/core/util/logger.dart';
+import 'package:app/pkg/utils/logger.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
